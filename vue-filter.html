@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="vue.js"></script>
+</head>
+<body>
+
+<!--
+<h3>欢迎<span id="record"></span>查看我的简历！</h3>
+
+<script>
+var pageVisited = false;
+
+if (!localStorage.pageVisited) {
+  pageVisited = true;
+  localStorage.pageVisited = JSON.stringify(pageVisited);
+} else {
+  document.getElementById('record').innerHTML = '再次';
+}
+
+</script>
+-->
+
+<section id="container">
+  <h3>项目历练：</h3>
+  <div>
+  <input type="checkbox" checked="checked" id="2017" value="2017" v-model="checkedYears" v-on:change="filterByYear">
+  <label for="2017">2017  </label>
+  <input type="checkbox" id="2016" value="2016" v-model="checkedYears" v-on:change="filterByYear"  checked="checked">
+  <label for="2016">2016  </label>
+  <input type="checkbox" id="2015" value="2015" v-model="checkedYears" v-on:change="filterByYear" checked="checked">
+  <label for="2015">2015</label>
+  </div>
+  <ul id="project-list">
+  <li v-for="item in visibleProjects" key="item.time">
+    <p>{{item.time}}</p>
+    <p>{{item.name}}</p>
+    <p>{{item.tech}}</p>
+    <p>{{item.detail}}</p>
+  </li>
+</ul>
+</section>
+
+<script type="text/javascript">
+var projectList = new Vue({
+  el: '#container',
+  data: {
+    projects: [ 
+   {
+    time: "2017.9 - 2017.11",
+    name: "电子简历",
+    tech: "技术 HTML, CSS, JS",
+    detail: "电子版个人简历，发布在GitHub"
+   }, 
+   {
+    time: "2016.9 - 2017.2",
+    name: "飞行游戏",
+    tech: "U3D，渲染算法",
+    detail: "竞技类单机游戏"
+   },
+   {
+    time: "2014.3 - 2015.7",
+    name: "购物网站",
+    tech: "HTML, CSS",
+    detail: "前端工程项目"
+   }
+   ],
+
+   visibleProjects: [ 
+   {
+    time: "2017.9 - 2017.11",
+    name: "电子简历",
+    tech: "技术 HTML, CSS, JS",
+    detail: "电子版个人简历，发布在GitHub"
+   }, 
+   {
+    time: "2016.9 - 2017.2",
+    name: "飞行游戏",
+    tech: "U3D，渲染算法",
+    detail: "竞技类单机游戏"
+   },
+   {
+    time: "2014.3 - 2015.7",
+    name: "购物网站",
+    tech: "HTML, CSS",
+    detail: "前端工程项目"
+   }
+   ],
+
+   checkedYears: []
+  },
+  methods: {
+    filterByYear: function() {
+      this.visibleProjects = [];
+
+      for (var i = 0; i < this.projects.length; i++) {
+        var item = this.projects[i];
+
+        for(var j = 0; j < this.checkedYears.length; j++) {
+          value = this.checkedYears[j];
+
+          if(item.time.indexOf(value) >= 0) {
+            this.visibleProjects.push(item);
+
+            break;
+          }
+        }
+      }
+
+      return this.visibleProjects;
+    }
+  }
+})
+</script>
+
+<!--
+  <script type="text/jsx">
+class ProjectList extends React.Component { 
+  constructor(props) {
+   super(props);
+   var allItems = [ 
+   {
+    time: "2017.9 - 2017.11",
+    name: "电子简历",
+    tech: "技术 HTML, CSS, JS",
+    detail: "电子版个人简历，发布在GitHub"
+   }, 
+   {
+    time: "2016.9 - 2017.2",
+    name: "飞行游戏",
+    tech: "U3D，渲染算法",
+    detail: "竞技类单机游戏"
+   },
+   {
+    time: "2016.3 - 2016.7",
+    name: "购物网站",
+    tech: "HTML, CSS",
+    detail: "前端工程项目"
+   }
+   ];
+   this.state = { initialItems: allItems, currentItems: allItems }; 
+  }
+
+  filterList(input){ 
+  var updatedList = this.state.initialItems; 
+
+  updatedList = updatedList.filter(function(item){ 
+                 return item.time.search(input.target.value) !== -1; 
+               }); 
+  this.setState({currentItems: updatedList}); 
+  } 
+
+
+  render(){ 
+    return ( 
+    <div className="filter-list"> 
+      <input type="text" placeholder="时间过滤" onChange={this.filterList.bind(this)}/> 
+      <List items={this.state.currentItems}/> 
+      </div> 
+    ); 
+  } 
+}; 
+
+class List extends React.Component { 
+  render(){ 
+  return ( 
+  <ul> { this.props.items.map(function(item) { 
+    return <li key={item.time}><p>{item.time}</p><p>{item.name}</p><p>{item.tech}</p><p>{item.detail}</p></li> }) }
+    </ul> 
+  ) 
+  } 
+}; 
+
+ReactDOM.render(<ProjectList/>, document.getElementById('container'));
+
+</script>
+-->
+</body>
+</html>
