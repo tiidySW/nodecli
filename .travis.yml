@@ -12,3 +12,6 @@ sudo: false
 before_scrit: npm install
 
 script: npm run test
+
+after_script: exit 0
+
